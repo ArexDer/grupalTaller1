@@ -1,0 +1,155 @@
+[
+    {
+        "uri": "http://en.wikipedia.org/wiki/Joe_Bryant",
+        "type": "person",
+        "label": {
+            "eng": "Joe Bryant"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 1242.282946273301,
+                "testPopFq": 982,
+                "nullPopFq": 4
+            }
+        }
+    },
+    {
+        "uri": "http://en.wikipedia.org/wiki/Jürgen_Elsässer",
+        "type": "person",
+        "label": {
+            "eng": "Jürgen Elsässer"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 817.6191504547427,
+                "testPopFq": 792,
+                "nullPopFq": 6
+            }
+        }
+    },
+    {
+        "uri": "http://el.wikipedia.org/wiki/Σοφικό_Κορινθίας",
+        "type": "loc",
+        "label": {
+            "eng": "Σοφικό Κορινθίας"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 642.6610655078865,
+                "testPopFq": 254,
+                "nullPopFq": 1
+            }
+        },
+        "location": null
+    },
+    {
+        "uri": "http://en.wikipedia.org/wiki/Rostov_Nuclear_Power_Plant",
+        "type": "person",
+        "label": {
+            "eng": "Rostov Nuclear Power Plant"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 539.5214288770928,
+                "testPopFq": 604,
+                "nullPopFq": 8
+            }
+        }
+    },
+    {
+        "uri": "http://en.wikipedia.org/wiki/Samuel_Sharpe",
+        "type": "person",
+        "label": {
+            "eng": "Samuel Sharpe"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 528.7338117778136,
+                "testPopFq": 209,
+                "nullPopFq": 1
+            }
+        }
+    },
+    {
+        "uri": "http://en.wikipedia.org/wiki/Mukesh_Sahani",
+        "type": "person",
+        "label": {
+            "eng": "Mukesh Sahani"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 440.1237255433123,
+                "testPopFq": 174,
+                "nullPopFq": 1
+            }
+        }
+    },
+    {
+        "uri": "http://fr.wikipedia.org/wiki/J'ai_lu",
+        "type": "org",
+        "label": {
+            "eng": "J'ai lu"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 401.1248153450088,
+                "testPopFq": 1600,
+                "nullPopFq": 100
+            }
+        }
+    },
+    {
+        "uri": "http://en.wikipedia.org/wiki/Walls,_Mississippi",
+        "type": "loc",
+        "label": {
+            "eng": "Walls, Mississippi"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 361.6405063070398,
+                "testPopFq": 143,
+                "nullPopFq": 1
+            }
+        },
+        "location": {
+            "type": "place",
+            "label": {
+                "eng": "Walls, Mississippi"
+            },
+            "country": {
+                "type": "country",
+                "label": {
+                    "eng": "United States"
+                }
+            }
+        }
+    },
+    {
+        "uri": "http://en.wikipedia.org/wiki/Naomi_Pomeroy",
+        "type": "person",
+        "label": {
+            "eng": "Naomi Pomeroy"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 344.9488677464202,
+                "testPopFq": 193,
+                "nullPopFq": 2
+            }
+        }
+    },
+    {
+        "uri": "http://en.wikipedia.org/wiki/Tenacious_D",
+        "type": "org",
+        "label": {
+            "eng": "Tenacious D"
+        },
+        "trendingScore": {
+            "news": {
+                "score": 333.4683485232008,
+                "testPopFq": 1528,
+                "nullPopFq": 131
+            }
+        }
+    }
+]

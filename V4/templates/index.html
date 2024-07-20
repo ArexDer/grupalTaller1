@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Frequency</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        #popup.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Word Frequency Analysis</h1>
+    <canvas id="myChart"></canvas>
+    <div id="popup">
+        <h2>Top 5 Words</h2>
+        <ul id="top-words"></ul>
+        <button onclick="closePopup()">Close</button>
+    </div>
+    <script>
+        let chart;
+        let processedBlocks = 0;
+        const totalBlocks = Math.ceil(500 / 25); // Ajusta el número total de bloques
+
+        function updateChart(data) {
+            const labels = Object.keys(data);
+            const values = Object.values(data);
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Word Frequency',
+                        data: values,
+                        backgroundColor: values.map(value => getColor(value)),
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function getColor(value) {
+            if (value > 200) return 'red';
+            if (value > 150) return 'orange';
+            if (value > 100) return 'yellow';
+            if (value > 50) return 'lightgreen';
+            return 'lightblue';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').classList.remove('show');
+        }
+
+        function checkCompletion() {
+            fetch('/results')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.log(data.error);
+                    } else {
+                        updateChart(data);
+
+                        if (processedBlocks >= totalBlocks) {
+                            const topWords = document.getElementById('top-words');
+                            topWords.innerHTML = '';
+                            const sortedEntries = Object.entries(data).sort((a, b) => b[1] - a[1]);
+                            sortedEntries.slice(0, 5).forEach(([word, count]) => {
+                                const li = document.createElement('li');
+                                li.textContent = `${word}: ${count}`;
+                                topWords.appendChild(li);
+                            });
+
+                            document.getElementById('popup').classList.add('show');
+                        }
+                    }
+                });
+        }
+
+        function updateBlocks() {
+            processedBlocks += 1;
+            checkCompletion();
+        }
+
+        // Actualiza el progreso cada 5 segundos
+        setInterval(updateBlocks, 5000);
+
+        // Inicia el streaming de datos
+        const eventSource = new EventSource('/stream');
+        eventSource.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            updateChart(data);
+        };
+    </script>
+</body>
+</html>

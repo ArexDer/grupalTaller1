@@ -1,0 +1,25 @@
+Ejecutar los archivos en el orden indicado: 
+Los Scripts en py estan colocados de manera intuitiva como PASO1,PASO2,PASO...
+IMPORTANTE todo esta en la ruta de la carpeta v4: v4/ .....
+
+Paso1 ---> Se conecta con el API y me da los "n" datos en este caso 500
+           Me da un archivo txt. articlesCualquiercosa.txt
+
+Paso2 -->Limpieza del archivo txt, solo con las variables necesarias.
+        Transforma mi txt en un formato json.
+
+Paso3 --> Coneccion con Redis, en las extensiones de VS-CODE hay como descargarla pero se debe
+          tener redis instalado, eso lo hacen desde el CMD y con un tutorial de internet.
+          Ya con eso pueden visualizar el redis en VS-CODE para ver la key y el value(500 datos)
+
+Paso4 -->Me saca los datos de Redis en formato JSON que son mejor para el manejo de datos y MAPREDUCE
+ ---Paso4.1: Ejecutar el Script PASO_RevisionDelJson.py solo para ver que estan los n datos en este caso de 
+             ejemplo 500 datos.
+
+Paso5 -->Ejecutar el PASO5_MapRedice.py en donde se compila el codigo en fragmentos de 25 datos cada 5s
+         Buscando las palabas que mas se repiten el el titulo "title" y que a su vez se ejecuta el index.html
+
+Con esto ya en el navegador pueden abrir la ruta eu les da en la consola y visualizar el como se ejecuta.
+
+
+------------------------------------------------------------------------------------------------------

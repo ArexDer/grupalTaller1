@@ -1,0 +1,20 @@
+from eventregistry import *
+import json
+
+# Initialize EventRegistry with your API key
+er = EventRegistry(apiKey="7f3e1d23-cead-4c5b-8a7b-5e47da1e9586")
+
+# Define your query to get top 10 trending concepts in the news
+q = GetTrendingConcepts(source="news", count=10)
+
+# Execute the query and get the results
+results = er.execQuery(q)
+
+# Define the file path where you want to save the results
+file_path = "trending_concepts.txt"
+
+# Write the results to a text file
+with open(file_path, 'w', encoding='utf-8') as file:
+    json.dump(results, file, ensure_ascii=False, indent=4)
+
+print(f"Saved {len(results)} trending concepts to {file_path}")
