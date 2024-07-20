@@ -25,6 +25,10 @@
 </head>
 <body>
     <h1>Word Frequency Analysis</h1>
+    <form id="search-form">
+        <input type="text" id="search-input" placeholder="Buscar palabras..." />
+        <button type="submit">Consultar</button>
+    </form>
     <canvas id="myChart"></canvas>
     <div id="popup">
         <h2>Top 5 Words</h2>
@@ -117,6 +121,16 @@
             const data = JSON.parse(event.data);
             updateChart(data);
         };
+
+        // Maneja el formulario de búsqueda
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const query = document.getElementById('search-input').value;
+            fetch(`/search?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => updateChart(data))
+                .catch(error => console.error('Error al buscar:', error));
+        });
     </script>
 </body>
 </html>

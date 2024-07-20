@@ -2,7 +2,7 @@ from eventregistry import *
 
 # Configura el cliente de Event Registry
 #https://newsapi.ai/dashboard?tab=home
-er = EventRegistry(apiKey="7f3e1d23-cead-4c5b-8a7b-5e47da1e9586", allowUseOfArchive=False)
+er = EventRegistry(apiKey="f6dd4cbe-e06c-4a09-bdd0-d9dbcd5d8dad", allowUseOfArchive=False)
 
 # Obtiene los URIs para las empresas y la categoría
 microsoftUri = er.getConceptUri("Linux")

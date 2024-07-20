@@ -1,12 +1,12 @@
+from flask import Flask, jsonify, stream_with_context, Response, render_template, request
 import json
 import time
 from collections import Counter
-from flask import Flask, jsonify, stream_with_context, Response, render_template
 
 # Configuración
 filename = "articlesSistemas_recovered.json"
 block_size = 25
-interval = 5  # segundos
+interval = 10 # segundos
 
 # Crear la aplicación Flask
 app = Flask(__name__)
@@ -74,6 +74,16 @@ def results():
         return jsonify({"error": "Los datos aún no se han procesado completamente."})
     final_word_count = dict(global_word_count.most_common(20))  # Cambiado a 20 para ajustar al gráfico
     return jsonify(final_word_count)
+
+# Ruta para buscar palabras específicas
+@app.route('/search')
+def search():
+    query = request.args.get('query', '')
+    search_words = query.split()
+    
+    filtered_word_count = {word: count for word, count in global_word_count.items() if any(search_word in word for search_word in search_words)}
+    
+    return jsonify(filtered_word_count)
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)
