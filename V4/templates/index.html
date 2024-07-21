@@ -25,6 +25,16 @@
 </head>
 <body>
     <h1>Word Frequency Analysis</h1>
+
+    <!-- Formulario de entrada -->
+    <form id="search-form" method="POST" action="/search">
+        <label for="concept1">Concepto 1:</label>
+        <input type="text" id="concept1" name="concept1">
+        <label for="concept2">Concepto 2:</label>
+        <input type="text" id="concept2" name="concept2">
+        <button type="submit">Buscar</button>
+    </form>
+
     <canvas id="myChart"></canvas>
     <div id="popup">
         <h2>Top 5 Words</h2>

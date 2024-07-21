@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artículos de Sistemas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Buscar Artículos de Sistemas</h1>
+    <form action="/search" method="post">
+        <label for="term1">Término de búsqueda 1:</label>
+        <input type="text" id="term1" name="term1" required>
+        <br>
+        <label for="term2">Término de búsqueda 2:</label>
+        <input type="text" id="term2" name="term2" required>
+        <br>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if articles_found == articles_needed %}
+        <form action="/load_to_redis" method="post">
+            <button type="submit">Cargar artículos a Redis</button>
+        </form>
+    {% endif %}
+
+    <h2>Conteo de Palabras en Tiempo Real</h2>
+    <button id="startProcessing">Iniciar Procesamiento</button>
+    <canvas id="wordChart" width="400" height="200"></canvas>
+
+    <script>
+        const ctx = document.getElementById('wordChart').getContext('2d');
+        const wordChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Frecuencia de Palabras',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function updateChart(data) {
+            const labels = Object.keys(data);
+            const values = Object.values(data);
+
+            wordChart.data.labels = labels;
+            wordChart.data.datasets[0].data = values;
+            wordChart.update();
+        }
+
+        function fetchData() {
+            fetch('/get_global_word_count', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    const sortedWords = Object.entries(data)
+                        .filter(([word, count]) => word.length >= 3)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 20);
+
+                    const topWords = Object.fromEntries(sortedWords);
+                    updateChart(topWords);
+                }
+            });
+        }
+
+        document.getElementById('startProcessing').addEventListener('click', function() {
+            // Inicia el procesamiento de datos en bloques
+            fetch('/start_processing', { method: 'POST' });
+            // Actualiza el gráfico cada 5 segundos
+            setInterval(fetchData, 5000);
+        });
+    </script>
+</body>
+</html>
