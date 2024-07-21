@@ -1,3 +1,5 @@
+
+#BASE PARA NO
 from flask import Flask, render_template, request, jsonify
 import json
 import redis
@@ -73,9 +75,11 @@ def background_task():
             update_global_word_count(word_count)
             
             total_articles_processed += len(articles)
+            print(f"Processed {total_articles_processed} articles")
             time.sleep(interval)
         else:
             break
+
 
 @app.route('/')
 def index():
